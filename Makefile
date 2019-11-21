@@ -11,6 +11,7 @@ LDFLAGS =	-L lib/my/ -lmy
 UTFLAGS =	-lcriterion --coverage
 
 SRC		=	main.c	\
+			file.c	\
 			bsq.c
 
 OBJ		=	$(SRC:.c=.o)
@@ -61,6 +62,7 @@ SRCUT	=	my_compute_power_rec.c			   	\
 			lib/my/my_put_unsigned_long.c		\
 			lib/my/my_put_unprintable.c			\
 			main.c								\
+			file.c								\
 			bsq.c
 
 OBJUT	=	$(SRCUT:.c=.o)
@@ -86,7 +88,7 @@ debug: $(OBJ)
 	gcc -o $(NAME) $(OBJ) $(LDFLAGS) $(UTFLAGS)
 
 clean:
-	rm -f $(OBJ) $(OBJUT) vgcore.*
+	rm -f $(OBJ) $(OBJUT) vgcore.* *.gcda *.gcno
 	make clean -C lib/my/
 
 fclean: clean

@@ -55,7 +55,7 @@ $(NAME):	$(OBJ)
 	ar rc $(NAME) $(OBJ)
 
 clean:
-	rm -f $(OBJ) *~ *#
+	rm -f $(OBJ) *~ *# *.gcda *.gcno
 
 fclean: clean
 	rm -f $(NAME)

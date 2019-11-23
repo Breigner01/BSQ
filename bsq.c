@@ -14,18 +14,18 @@
 #include <stddef.h>
 #include "my.h"
 
-int compute_j(char **, int, int);
-int compute_i(char **, int, int);
+int compute_j(char **, unsigned int, unsigned int *, unsigned int *);
+int compute_i(char **, unsigned int, unsigned int *, unsigned int *);
 
-int retrieve_nb(char ***tab, char *buffer, int *nb)
+int retrieve_nb(char ***tab, char *buffer, unsigned int *nb)
 {
-    int k = 0;
+    unsigned int k = 0;
     char *nb_str;
 
     while (buffer[k] != '\n')
         k++;
     nb_str = malloc(sizeof(char) * (k + 1));
-    for (int i = 0; i < k; i++)
+    for (unsigned int i = 0; i < k; i++)
         nb_str[i] = buffer[i];
     (*nb) = my_getnbr(nb_str);
     free(nb_str);
@@ -34,7 +34,7 @@ int retrieve_nb(char ***tab, char *buffer, int *nb)
     return (k);
 }
 
-void fill_tab(char ***tab, char *buffer, int (*len)[2])
+void fill_tab(char ***tab, char *buffer, unsigned int (*len)[2])
 {
     int j = 0;
     int k = 0;
@@ -42,7 +42,7 @@ void fill_tab(char ***tab, char *buffer, int (*len)[2])
     k = retrieve_nb(tab, buffer, &(*len)[1]);
     for (int i = k; buffer[i] != '\n'; i++)
         (*len)[0]++;
-    for (int i = 0; i < (*len)[1]; i++) {
+    for (unsigned int i = 0; i < (*len)[1]; i++) {
         (*tab)[i] = malloc(sizeof(char) * ((*len)[0] + 2));
         while (buffer[k] != '\n' && buffer[k] != '\0') {
             (*tab)[i][j] = buffer[k];
@@ -55,21 +55,23 @@ void fill_tab(char ***tab, char *buffer, int (*len)[2])
     }
 }
 
-void find_bsq(char **tab, int *i, int (*coords)[2], int *size)
+void find_bsq(char **tab, unsigned int *i, unsigned int (*coords)[2], unsigned int *size, unsigned int *len)
 {
-    int temp_size = 1;
-    int temp_i = i[0];
-    int temp_j = i[1];
+    unsigned int temp_size = 1;
+    unsigned int temp_i[2] = {0, 0};
     int check;
 
+    temp_i[0] = i[0];
+    temp_i[1] = i[1];
     for (; tab[i[0]][i[1]] == '.'; temp_size++) {
-        check = compute_j(tab, temp_size, temp_j);
+        check = compute_j(tab, temp_size, temp_i, len);
         if (check == -1)
             break;
-        check = compute_i(tab, temp_size, temp_i);
+        check = compute_i(tab, temp_size, temp_i, len);
         if (check == -1)
             break;
     }
+    printf("temp_size = %d, x = %d, y = %d\n", temp_size, i[0], i[1]);
     if (temp_size > (*size)) {
         (*coords)[0] = i[0];
         (*coords)[1] = i[1];
@@ -77,21 +79,21 @@ void find_bsq(char **tab, int *i, int (*coords)[2], int *size)
     }
 }
 
-void cover_bsq(char **tab, int *len)
+void cover_bsq(char **tab, unsigned int *len)
 {
-    int size = 0;
-    int coords[2] = {0 ,0};
-    int i[2] = {0, 0};
+    unsigned int size = 0;
+    unsigned int coords[2] = {0 ,0};
+    unsigned int i[2] = {0, 0};
 
-    for (; i[0] + 1 < len[0]; i[0]++) {
-        for (i [1] = 0; i[1] + 1 < len[1]; i[1]++)
-            find_bsq(tab, i, &coords, &size);
+    for (; i[0] < len[0]; i[0]++) {
+        for (i[1] = 0; i[1] < len[1]; i[1]++)
+            find_bsq(tab, i, &coords, &size, len);
     }
-    for (int j = coords[0]; j < coords[0] + size; j++) {
-        for (int k = coords[1]; k < coords[1] + size && k < (*len); k++)
+    for (unsigned int j = coords[0]; j < coords[0] + size; j++) {
+        for (unsigned int k = coords[1]; k < coords[1] + size && k < len[1]; k++)
             tab[j][k] = 'x';
     }
-    for (int j = 0; j < (*len); j++) {
+    for (unsigned int j = 0; j < len[0]; j++) {
         my_putstr(tab[j]);
         my_putchar('\n');
         free(tab[j]);
@@ -107,7 +109,7 @@ int bsq(char *filepath)
     int check = 0;
     char *buffer;
     char **tab;
-    int len[2] = {0, 0};
+    unsigned int len[2] = {0, 0};
 
     stat(filepath, &stat_info);
     size = stat_info.st_size;

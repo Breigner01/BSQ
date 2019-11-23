@@ -20,5 +20,5 @@ Test (bsq, map_100_100)
 {
     char *buffer = malloc(sizeof(char) * );
     bsq("tests/mouli_maps/intermediate_map_100_100");
-    cr_assert_stdout_eq_str()
+    cr_assert_stdout_eq_str();
 }

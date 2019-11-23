@@ -6,29 +6,53 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "my.h"
 
-int compute_j(char **tab, int temp_size, int temp_j)
+int retrieve_number(char *buffer, int *nb)
 {
     int k = 0;
+    char *nb_str;
 
-    k = temp_j + temp_size;
-    while (temp_j <= k) {
-        if (tab[k][temp_j] == 'o')
+    while (buffer[k] != '\n')
+        k++;
+    nb_str = malloc(sizeof(char) * (k + 1));
+    for (int i = 0; i < k; i++)
+        nb_str[i] = buffer[i];
+    (*nb) = my_getnbr(nb_str);
+    free(nb_str);
+    k++;
+    return (k);
+}
+
+int compute_j(char **tab, unsigned int temp_size, unsigned int *temp_i, unsigned int *len)
+{
+    unsigned int k = temp_i[1] + temp_size;
+    unsigned int i = temp_i[0] + temp_size;
+
+    if (k >= len[1] || i >= len[0])
+        return (-1);
+    while (temp_i[0] <= i) {
+        printf("j: tab[%d][%d] = %c\n", temp_i[0], k, tab[temp_i[0]][k]);
+        if (tab[temp_i[0]][k] == 'o' || tab[temp_i[0]][k] == '\0' )
             return (-1);
-        temp_j++;
+        temp_i[0]++;
     }
     return (0);
 }
 
-int compute_i(char **tab, int temp_size, int temp_i)
+int compute_i(char **tab, unsigned int temp_size, unsigned int *temp_i, unsigned int *len)
 {
-    int k = 0;
+    unsigned int k = temp_i[0] + temp_size;
+    unsigned int i = temp_i[1] + temp_size;
 
-    k = temp_i + temp_size;
-    while (temp_i <= k) {
-        if (tab[k][temp_i] == 'o')
+    if (k >= len[0] || i >= len[1])
+        return (-1);
+    while (temp_i[1] <= i) {
+        printf("i: tab[%d][%d] = %c\n", k, temp_i[1], tab[k][temp_i[1]]);
+        if (tab[k][temp_i[1]] == 'o' || tab[k][temp_i[1]] == '\0')
             return (-1);
-        temp_i++;
+        temp_i[1]++;
     }
     return (0);
 }

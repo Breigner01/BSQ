@@ -82,7 +82,7 @@ tests_run: $(OBJUT)
 	gcovr --exclude tests/
 	gcovr --branches --exclude tests/
 
-debug: CFLAGS += -g3 -ggdb
+debug: CFLAGS += -g3
 debug: $(OBJ)
 	make -C lib/my/
 	gcc -o $(NAME) $(OBJ) $(LDFLAGS) $(UTFLAGS)

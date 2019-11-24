@@ -9,11 +9,6 @@
 #include <stdlib.h>
 #include "my.h"
 
-void limit_check()
-{
-
-}
-
 int retrieve_number(char *buffer, int *nb)
 {
     int k = 0;
@@ -30,33 +25,37 @@ int retrieve_number(char *buffer, int *nb)
     return (k);
 }
 
-int compute_j(char **tab, unsigned int temp_size, unsigned int *temp_i,
+int compute_i(char **tab, unsigned int temp_size, unsigned int *temp_i,
                 unsigned int *len)
 {
     unsigned int k = temp_i[1] + temp_size;
     unsigned int i = temp_i[0] + temp_size;
 
-    if (k >= len[1] || i >= len[0])
+    if (k >= len[1] || i >= len[0]) {
         return (-1);
+    }
     while (temp_i[0] <= i) {
-        if (tab[temp_i[0]][k] == 'o' || tab[temp_i[0]][k] == '\0')
+        if (tab[temp_i[0]][k] != '.') {
             return (-1);
+        }
         temp_i[0]++;
     }
     return (0);
 }
 
-int compute_i(char **tab, unsigned int temp_size, unsigned int *temp_i,
+int compute_j(char **tab, unsigned int temp_size, unsigned int *temp_i,
                 unsigned int *len)
 {
     unsigned int k = temp_i[0] + temp_size;
     unsigned int i = temp_i[1] + temp_size;
 
-    if (k >= len[0] || i >= len[1])
+    if (k >= len[0] || i >= len[1]) {
         return (-1);
-    while (temp_i[1] <= i) {
-        if (tab[k][temp_i[1]] == 'o' || tab[k][temp_i[1]] == '\0')
+    }
+    while (temp_i[1] < i) {
+        if (tab[k][temp_i[1]] != '.') {
             return (-1);
+        }
         temp_i[1]++;
     }
     return (0);

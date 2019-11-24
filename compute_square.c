@@ -30,7 +30,8 @@ int retrieve_number(char *buffer, int *nb)
     return (k);
 }
 
-int compute_j(char **tab, unsigned int temp_size, unsigned int *temp_i, unsigned int *len)
+int compute_j(char **tab, unsigned int temp_size, unsigned int *temp_i,
+                unsigned int *len)
 {
     unsigned int k = temp_i[1] + temp_size;
     unsigned int i = temp_i[0] + temp_size;
@@ -45,7 +46,8 @@ int compute_j(char **tab, unsigned int temp_size, unsigned int *temp_i, unsigned
     return (0);
 }
 
-int compute_i(char **tab, unsigned int temp_size, unsigned int *temp_i, unsigned int *len)
+int compute_i(char **tab, unsigned int temp_size, unsigned int *temp_i,
+                unsigned int *len)
 {
     unsigned int k = temp_i[0] + temp_size;
     unsigned int i = temp_i[1] + temp_size;

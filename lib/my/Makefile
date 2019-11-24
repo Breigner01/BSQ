@@ -17,7 +17,6 @@ SRC	=	my_compute_power_rec.c   	\
 		my_put_nbr.c 				\
 		my_putstr.c 				\
 		my_revstr.c 				\
-		my_strcapitalize.c 			\
 		my_strcat.c 				\
 		my_strcmp.c 				\
 		my_strcpy.c 				\

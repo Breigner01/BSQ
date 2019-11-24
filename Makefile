@@ -11,14 +11,14 @@ LDFLAGS =	-L lib/my/ -lmy
 UTFLAGS =	-lcriterion --coverage
 
 SRC		=	main.c	\
-			file.c	\
+			compute_square.c	\
 			bsq.c
 
 OBJ		=	$(SRC:.c=.o)
 
 NAME	=	bsq
 
-SRCUT	=	my_compute_power_rec.c			   	\
+SRCUT	=	lib/my/my_compute_power_rec.c		\
 			lib/my/my_compute_square_root.c 	\
 			lib/my/my_find_prime_sup.c      	\
 			lib/my/my_getnbr.c              	\
@@ -28,18 +28,9 @@ SRCUT	=	my_compute_power_rec.c			   	\
 			lib/my/my_put_nbr.c 				\
 			lib/my/my_putstr.c 					\
 			lib/my/my_revstr.c 					\
-			lib/my/my_showmem.c 				\
-			lib/my/my_showstr.c 				\
-			lib/my/my_sort_int_array.c 			\
-			lib/my/my_strcapitalize.c 			\
 			lib/my/my_strcat.c 					\
 			lib/my/my_strcmp.c 					\
 			lib/my/my_strcpy.c 					\
-			lib/my/my_str_isalpha.c 			\
-			lib/my/my_str_islower.c 			\
-			lib/my/my_str_isnum.c 				\
-			lib/my/my_str_isprintable.c 		\
-			lib/my/my_str_isupper.c 			\
 			lib/my/my_strlen.c 					\
 			lib/my/my_strlowcase.c 				\
 			lib/my/my_strncat.c 				\
@@ -61,8 +52,10 @@ SRCUT	=	my_compute_power_rec.c			   	\
 			lib/my/my_put_unsigned_int.c		\
 			lib/my/my_put_unsigned_long.c		\
 			lib/my/my_put_unprintable.c			\
+			lib/my/my_put_short.c				\
+			lib/my/my_put_unsigned_short.c		\
 			main.c								\
-			file.c								\
+			compute_square.c					\
 			bsq.c
 
 OBJUT	=	$(SRCUT:.c=.o)

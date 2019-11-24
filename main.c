@@ -23,7 +23,7 @@ int wrong_line_nb(char *filepath)
     int size = 0;
     int i = 0;
     int line = 0;
-    int nb;
+    int nb = 0;
     char *buffer;
 
     stat(filepath, &stat_info);
@@ -31,12 +31,13 @@ int wrong_line_nb(char *filepath)
     buffer = malloc(sizeof(char) * (size + 1));
     read(fd, buffer, size);
     i = retrieve_number(buffer, &nb);
-    for (; buffer[i] != '\0'; i++) {
+    for (; buffer[i] != '\0'; i++)
         if (buffer[i] == '\n')
             line++;
-    }
     if (line != nb)
         return(84);
+    free(buffer);
+    close(fd);
     return (0);
 }
 
@@ -52,15 +53,13 @@ int wrong_char(char *filepath)
     size = stat_info.st_size;
     buffer = malloc(sizeof(char) * (size + 1));
     read(fd, buffer, size);
-    for (; buffer[i] != '\n'; i++) {
-        if (buffer[i] < '0' || buffer[i] > '9')
-            return (84);
-    }
-    i++;
     for (; buffer[i] != '\0'; i++) {
-        if (buffer[i] != '.' && buffer[i] != 'o' && buffer[i] != '\n')
+        if ((buffer[i] < '0' || buffer[i] > '9') && buffer[i] != '.' &&
+            buffer[i] != 'o' && buffer[i] != '\n')
             return (84);
     }
+    free(buffer);
+    close(fd);
     return (0);
 }
 

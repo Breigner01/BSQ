@@ -67,6 +67,7 @@ int parser(char **tab, void (*fun_ptr[])(), int (*j)[], va_list arg)
         fun_ptr[(*j)[1]](va_arg(arg, void *));
         return ((*j)[0] + 1);
     }
+    return (0);
 }
 
 void flag_correspondance(char **tab, void (*fun_ptr[])(), int *i, va_list arg)

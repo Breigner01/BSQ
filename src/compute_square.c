@@ -15,13 +15,13 @@ int retrieve_number(char *buffer, int *nb)
     char *nb_str;
 
     while (buffer[k] != '\n')
-        k++;
+        k += 1;
     nb_str = malloc(sizeof(char) * (k + 1));
-    for (int i = 0; i < k; i++)
+    for (int i = 0; i < k; ++i)
         nb_str[i] = buffer[i];
     (*nb) = my_getnbr(nb_str);
     free(nb_str);
-    k++;
+    k += 1;
     return (k);
 }
 
@@ -34,11 +34,12 @@ int compute_i(char **tab, unsigned int temp_size, unsigned int *temp_i,
     if (k >= len[1] || i >= len[0]) {
         return (-1);
     }
-    while (temp_i[0] <= i) {
+    while (temp_i[0] < i) {
         if (tab[temp_i[0]][k] != '.') {
+            printf("i: tab[%d][%d] = %c\n", temp_i[0], k, tab[temp_i[0]][k]);
             return (-1);
         }
-        temp_i[0]++;
+        temp_i[0] += 1;
     }
     return (0);
 }
@@ -54,9 +55,10 @@ int compute_j(char **tab, unsigned int temp_size, unsigned int *temp_i,
     }
     while (temp_i[1] < i) {
         if (tab[k][temp_i[1]] != '.') {
+            printf("j: tab[%d][%d] = %c\n", k, temp_i[1], tab[k][temp_i[1]]);
             return (-1);
         }
-        temp_i[1]++;
+        temp_i[1] += 1;
     }
     return (0);
 }

@@ -10,9 +10,9 @@ CFLAGS	=	-Wall -Wextra
 LDFLAGS =	-L lib/my/ -lmy
 UTFLAGS =	-lcriterion --coverage
 
-SRC		=	main.c	\
-			compute_square.c	\
-			bsq.c
+SRC		=	src/main.c				\
+			src/compute_square.c	\
+			src/bsq.c
 
 OBJ		=	$(SRC:.c=.o)
 
@@ -54,9 +54,9 @@ SRCUT	=	lib/my/my_compute_power_rec.c		\
 			lib/my/my_put_unprintable.c			\
 			lib/my/my_put_short.c				\
 			lib/my/my_put_unsigned_short.c		\
-			main.c								\
-			compute_square.c					\
-			bsq.c
+			src/main.c							\
+			src/compute_square.c				\
+			src/bsq.c
 
 OBJUT	=	$(SRCUT:.c=.o)
 

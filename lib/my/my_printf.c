@@ -5,6 +5,7 @@
 ** act like printf
 */
 
+#pragma GCC diagnostic ignored "-Wincompatible-pointer-types"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>

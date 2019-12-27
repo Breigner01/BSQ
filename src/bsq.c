@@ -66,8 +66,9 @@ void find_bsq(char **tab, unsigned int (*i)[2], unsigned int (*coords)[2],
     for (; ((*i)[0] + (*size)) <= len[0] && ((*i)[1] + (*size)) <= len[1] &&
         tab[(*i)[0]][(*i)[1]] == '.'; ++temp_size) {
         if (compute_i(tab, temp_size, temp_i, len) == -1 ||
-            compute_j(tab, temp_size, temp_i, len) == -1) {
-                break;
+        compute_j(tab, temp_size, temp_i, len) == -1) {
+            printf("tab[%d][%d] = %c, size = %d\n", temp_i[0], temp_i[1], tab[temp_i[0]][temp_i[1]], temp_size);
+            break;
         }
     }
     if (temp_size > (*size)) {
@@ -120,4 +121,4 @@ int bsq(char *filepath)
     cover_bsq(tab, len);
     free(buffer);
     return (0);
-}
+    }

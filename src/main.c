@@ -20,16 +20,15 @@ int wrong_line_nb(char *filepath)
 {
     struct stat stat_info;
     int fd = open(filepath, O_RDONLY);
-    int size = 0;
     int i = 0;
     int line = 0;
     int nb = 0;
     char *buffer;
 
     stat(filepath, &stat_info);
-    size = stat_info.st_size;
-    buffer = malloc(sizeof(char) * (size + 1));
-    read(fd, buffer, size);
+    buffer = malloc(sizeof(char) * (stat_info.st_size + 1));
+    read(fd, buffer, stat_info.st_size);
+    buffer[stat_info.st_size] = '\0';
     i = retrieve_number(buffer, &nb);
     for (; buffer[i] != '\0'; ++i)
         if (buffer[i] == '\n')
@@ -45,14 +44,13 @@ int wrong_char(char *filepath)
 {
     struct stat stat_info;
     int fd = open(filepath, O_RDONLY);
-    int size = 0;
     int i = 0;
     char *buffer;
 
     stat(filepath, &stat_info);
-    size = stat_info.st_size;
-    buffer = malloc(sizeof(char) * (size + 1));
-    read(fd, buffer, size);
+    buffer = malloc(sizeof(char) * (stat_info.st_size + 1));
+    read(fd, buffer, stat_info.st_size);
+    buffer[stat_info.st_size] = '\0';
     for (; buffer[i] != '\0'; ++i) {
         if ((buffer[i] < '0' || buffer[i] > '9') && buffer[i] != '.' &&
             buffer[i] != 'o' && buffer[i] != '\n')
